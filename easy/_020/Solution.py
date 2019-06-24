@@ -20,9 +20,13 @@
  *
  * 2）若不为对应的左半边括号，反之返回false
  *
- * 2）如栈不为空且为对应的左半边括号，则取出栈顶元素，继续循环
+ * 3）如栈不为空且为对应的左半边括号，则取出栈顶元素，继续循环
  *
  * 如果当前字符为左半边括号时，则将其压入栈中即可
+ *
+ * 复杂度分析：
+ * 时间复杂度：O(n)，因为我们一次只遍历给定的字符串中的一个字符并在栈上进行 O(1) 的推入和弹出操作。
+ * 空间复杂度：O(n)，当我们将所有的开括号都推到栈上时以及在最糟糕的情况下，我们最终要把所有括号推到栈上。例如 ((((((((((。
 '''
 class Solution(object):
     def isValid(self, s):
@@ -33,12 +37,13 @@ class Solution(object):
             ']': '[',
         }
         for c in s:
-            ##右括号
+            #右括号
             if c in map.keys():
                 if len(stack) == 0:
                     return False
                 elif stack.pop() != map.get(c):
                     return False
+            #左括号
             else:
                 stack.append(c)
         return len(stack) == 0
